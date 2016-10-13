@@ -22,10 +22,10 @@ void printIntro(){
 int getJudgeNo(){
 	//getJudgeNo() ber anvädaren att mata in antal domare och loopar tills ett godkänt antal anges. Ej säkrad mot ickenumeriska inmatningar.
 	int judgeNo = 0;
-	while ( !( (judgeNo >= MIN_JUDGES) && (judgeNo <= MAX_JUDGES) ) ) {
+	do {
 		printf("Number of judges (min %d and max %d judges)? ", MIN_JUDGES, MAX_JUDGES);
 		scanf("%d", &judgeNo);
-	} 
+	} while ( ( judgeNo < MIN_JUDGES ) || ( judgeNo > MAX_JUDGES ) );
 	return judgeNo;
 }
 
@@ -81,11 +81,9 @@ void printResults(double *min, double *max, double *avg){
 int main() {
 	
 	printIntro(); //Introduktionstext skrivs ut.
-	
-	printf("\n"); //Radbrytning. Kändes inte helt relevant i i någon om funktionerna. Att sätta dem i main() kändes ovanligt nog mer modulärt.
+	printf("\n"); //Radbrytning. Kändes inte helt relevant i i någon av funktionerna. Att sätta dem i main() kändes ovanligt nog mer modulärt.
 	
 	int judgeNo= getJudgeNo();	//Antal domare läses in från användare.
-	
 	printf("\n");
 	
 	double scores[judgeNo];	//Array för poäng skapas där varje element korresponderar mot en domare.
@@ -94,16 +92,18 @@ int main() {
 																	//Högsta och lägsta får värdet +-DBL_MAX för att alla inmatade poäng ska kunna 
 																	//beräknas även om poängskala går mot miljoner eller tillåter negativa poäng.
 	
-	getScores(judgeNo, &scores);	//Användaren matar in poängen för varje enskild domare.
-	
+	getScores(judgeNo, scores);	//Användaren matar in poängen för varje enskild domare.
 	printf("\n");
 	
-	printScores(judgeNo, &scores);	//Poängen för varje enskild domare skrivs ut individuellt.
-	
+	printScores(judgeNo, scores);	//Poängen för varje enskild domare skrivs ut individuellt.
 	printf("\n");
 	
-	getResults(judgeNo, &scores, &minScore, &maxScore, &averageScore);	//Beräkningar på högsta, lägsta och justerade snittpoäng görs.
+	getResults(judgeNo, scores, &minScore, &maxScore, &averageScore);	//Beräkningar på högsta, lägsta och justerade snittpoäng görs.
 	
 	printResults(&minScore, &maxScore, &averageScore);	//Skriver ut högsta, lägsta och justerade snittpoäng.
+	
+	getchar();	//Av någon anledning ger enbart en getchar() ingen paus.
+	getchar();	//Potentiellt att det ligger kvar något i bufferten?
+	
 	return 0;
 }
