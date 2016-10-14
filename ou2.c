@@ -73,13 +73,13 @@ void getResults(int judgeNo, double scores[], double *min, double *max, double *
 	*avg = (sum - (*min + *max)) / (judgeNo - 2);
 }
 
-void printResults(double *min, double *max, double *avg){
+void printResults(double min, double max, double avg){
 	//printResults() skriver ut högsta poäng, lägsta poäng och justerad snittpoäng. 
 	//(Jag är medveten om att parametrarna inte behöver vara pekare, men det kändes trevligt med tanke på uppgiftens tema)
 	printf("Final result:\n");
-	printf("Highest judge score: %.1lf\n", *max);
-	printf("Lowest judge score: %.1lf\n", *min);
-	printf("Final average score: %.1lf\n", *avg);
+	printf("Highest judge score: %.1lf\n", max);
+	printf("Lowest judge score: %.1lf\n", min);
+	printf("Final average score: %.1lf\n", avg);
 }
 
 int main() {
@@ -104,7 +104,7 @@ int main() {
 	
 	getResults(judgeNo, scores, &minScore, &maxScore, &averageScore);	//Beräkningar på högsta, lägsta och justerade snittpoäng görs.
 	
-	printResults(&minScore, &maxScore, &averageScore);	//Skriver ut högsta, lägsta och justerade snittpoäng.
+	printResults(minScore, maxScore, averageScore);	//Skriver ut högsta, lägsta och justerade snittpoäng.
 	
 	getchar();	//Av någon anledning ger enbart en getchar() ingen paus.
 	getchar();	//Potentiellt att det ligger kvar något i bufferten?
