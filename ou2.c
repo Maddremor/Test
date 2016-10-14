@@ -50,6 +50,10 @@ void getResults(int judgeNo, double scores[], double *min, double *max, double *
 	
 	double sum = 0;		//sum deklareras som den totala poängsumman
 	
+	// Ger minimum och maximum det första elementets värde för att if-satserna i kommande for-loop ska fungera konsekvent.
+	*min = scores[0];
+	*max = scores[0];
+	
 	for (int n = 0; n < judgeNo; n++){
 		//I loop adderas den n:te elementet i poängarrayen till summan,
 		sum = sum + scores[n];
@@ -88,7 +92,7 @@ int main() {
 	
 	double scores[judgeNo];	//Array för poäng skapas där varje element korresponderar mot en domare.
 	
-	double averageScore, maxScore = -DBL_MAX, minScore = DBL_MAX;	//Variabler för högsta, lägsta och snittpoäng initieras. 
+	double averageScore, maxScore, minScore;	//Variabler för högsta, lägsta och snittpoäng initieras. 
 																	//Högsta och lägsta får värdet +-DBL_MAX för att alla inmatade poäng ska kunna 
 																	//beräknas även om poängskala går mot miljoner eller tillåter negativa poäng.
 	
