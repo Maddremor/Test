@@ -5,9 +5,9 @@
 
  * File:         ou3.c
  * Description:  A simple implementation of Conway's Game of Life.
- * Author:
- * CS username:
- * Date:
+ * Author:       Lukas Sjögren
+ * CS username:  tm14lsn
+ * Date:         2016-10-20
  * Input:        Choice of initial configuration and then instruction to step
  *               or exit.
  * Output:       Prints the game field in each step.

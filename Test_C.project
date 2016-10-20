@@ -95,8 +95,8 @@
   <VirtualDirectory Name="src">
     <File Name="main.c" ExcludeProjConfig="Debug"/>
     <File Name="ou1.c" ExcludeProjConfig="Debug"/>
-    <File Name="ou2.c"/>
-    <File Name="ou3.c" ExcludeProjConfig="Debug"/>
+    <File Name="ou2.c" ExcludeProjConfig="Debug"/>
+    <File Name="ou3.c" ExcludeProjConfig=""/>
   </VirtualDirectory>
   <Dependencies Name="Debug"/>
   <Dependencies Name="Release"/>
