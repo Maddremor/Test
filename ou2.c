@@ -75,7 +75,6 @@ void getResults(int judgeNo, double scores[], double *min, double *max, double *
 
 void printResults(double min, double max, double avg){
 	//printResults() skriver ut högsta poäng, lägsta poäng och justerad snittpoäng. 
-	//(Jag är medveten om att parametrarna inte behöver vara pekare, men det kändes trevligt med tanke på uppgiftens tema)
 	printf("Final result:\n");
 	printf("Highest judge score: %.1lf\n", max);
 	printf("Lowest judge score: %.1lf\n", min);
@@ -93,8 +92,6 @@ int main() {
 	double scores[judgeNo];	//Array för poäng skapas där varje element korresponderar mot en domare.
 	
 	double averageScore, maxScore, minScore;	//Variabler för högsta, lägsta och snittpoäng initieras. 
-																	//Högsta och lägsta får värdet +-DBL_MAX för att alla inmatade poäng ska kunna 
-																	//beräknas även om poängskala går mot miljoner eller tillåter negativa poäng.
 	
 	getScores(judgeNo, scores);	//Användaren matar in poängen för varje enskild domare.
 	printf("\n");
