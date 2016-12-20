@@ -21,6 +21,8 @@
 /* Constants, representation of states */
 #define ALIVE 'X'
 #define DEAD '.'
+#define ROWS 20
+#define COLUMNS 20
 
 /* Declaration of data structure */
 typedef struct{
@@ -35,6 +37,10 @@ void loadSemaphore(const int rows, const int cols, cell field[rows][cols]);
 void loadRandom(const int rows, const int cols, cell field[rows][cols]);
 void loadCustom(const int rows, const int cols, cell field[rows][cols]);
 
+void printField(const int rows, const int cols, cell field[rows][cols]);
+void printMenu();
+void simulateField(const int rows, const int cols, cell field[rows][cols]);
+
 
 /* Function:    main
  * Description: Start and run games, interact with the user.
@@ -43,7 +49,11 @@ void loadCustom(const int rows, const int cols, cell field[rows][cols]);
  */
 
 int main(void) {
-
+    
+    
+    initField()
+    
+    
     return 0;
 }
 
@@ -134,7 +144,7 @@ void loadSemaphore(const int rows, const int cols, cell field[rows][cols]) {
 void loadRandom(const int rows, const int cols, cell field[rows][cols]) {
     srand(time());
     for (int i = 0 ; i < rows ; i++){
-        for (int j = 0 ; j < cols ; i++){
+        for (int j = 0 ; j < cols ; j++){
             if (rand() % 2){
                 field[i][j].current = ALIVE;
             }
