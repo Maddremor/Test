@@ -188,13 +188,15 @@ void loadCustom(const int rows, const int cols, cell field[rows][cols]) {
  */
 
 void printField(const int rows, const int cols, cell field[rows][cols]){
-    for (int i ; i < rows ; i++){
-        for (int j ; j < cols ; j++){
-            if (j == 0) {
-                printf("\n%c", field[i][j].current);
+    
+    for (int r = 0; r < rows ; r++){
+        for (int c = 0 ; c < cols ; c++){
+            if (c == (cols-1)) {
+                printf("%c\n", field[r][c].current);
             } else {
-                printf(" %c", field[i][j].current);
+                printf("%c ", field[r][c].current);
             }
+            
         }
     }
 }
@@ -207,9 +209,10 @@ void printField(const int rows, const int cols, cell field[rows][cols]){
  */
 
 int menu(){
-    printf("(enter) Step");
-    printf("(any) Exit");
-    return (getchar() == 14);
+    printf("Select one of the following options:\n");
+    printf("(enter) Step\n");
+    printf("(any) Exit\n");
+    return (getchar() == '\n');
 }
 
 
@@ -222,17 +225,27 @@ int menu(){
 void simulateField(const int rows, const int cols, cell field[rows][cols]){
     
     int neighbourSum;
-    for (int r ; r < rows ; r++){
-        for (int c ; c < cols ; c++){
+    for (int r = 0; r < rows ; r++){
+        for (int c = 0; c < cols ; c++){
             neighbourSum = countNeighbours(rows, cols, r, c, field);
             
-            if ( (field[r][c].current == ALIVE) && ( (neighbourSum >= 3) || (neighbourSum <= 1) ) ){
-                field[r][c].next = DEAD;
-            } else if ( (field[r][c].current == DEAD) && (neighbourSum == 3) ){
-                field[r][c].next = ALIVE;
+            
+            if (field[r][c].current == ALIVE) {
+                if (neighbourSum >= 4) {
+                    field[r][c].next = DEAD;
+                } else if (neighbourSum <= 1){
+                    field[r][c].next = DEAD;
+                } else {
+                    field[r][c].next = ALIVE;
+                }
+            
+            } else if (field[r][c].current == DEAD) {
+                if (neighbourSum == 3) {
+                    field[r][c].next = ALIVE;
+                } else {
+                    field[r][c].next = DEAD;
+                }
             }
-            
-            
         }
             
     }
@@ -249,9 +262,13 @@ void simulateField(const int rows, const int cols, cell field[rows][cols]){
  */
 
 void updateField(const int rows, const int cols, cell field[rows][cols]){
-    for (int i ; i < rows ; i++){
-        for (int j ; j < cols ; j++){
-            field[i][j].current = field[i][j].next;
+    for (int r = 0; r < rows ; r++){
+        for (int c = 0; c < cols ; c++){
+            if (field[r][c].next == ALIVE) {
+                field[r][c].current = ALIVE;
+            } else if (field[r][c].next == DEAD) {
+                field[r][c].current = DEAD;
+            }
         }
             
     }
@@ -264,14 +281,14 @@ int countNeighbours(const int rows, const int cols, const int r, const int c ,ce
     int colUpperBound = c + 1;
     int colLowerBound = c - 1;
     
-    if (r >= rows){
-        rowUpperBound = rows;
+    if (r >= ( rows - 1 ) ) {
+        rowUpperBound = rows-1;
     }
     if (r <= 0){
         rowLowerBound = 0;
     }
-    if (c >= cols){
-        colUpperBound = cols;
+    if (c >= ( cols - 1 ) ) {
+        colUpperBound = cols-1;
     }
     if (c <= 0){
         colLowerBound = 0;
@@ -279,7 +296,7 @@ int countNeighbours(const int rows, const int cols, const int r, const int c ,ce
     
     for (int i = rowLowerBound ; i <= rowUpperBound ; i++){
         for (int j = colLowerBound ; j <= colUpperBound ; j++){
-            if ( (field[i][j].current == ALIVE) && (i != r ) &&( j != c) ){
+            if ( (field[i][j].current == ALIVE) && ( (i != r ) || ( j != c) ) ){
                 neighbourSum++;
             }
         }
