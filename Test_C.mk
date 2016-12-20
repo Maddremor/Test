@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=Maddremor
-Date                   :=14/10/2016
+Date                   :=20/12/2016
 CodeLitePath           :="D:/Program Files/CodeLite"
 LinkerName             :=C:/TDM-GCC-64/bin/g++.exe
 SharedObjectLinkerName :=C:/TDM-GCC-64/bin/g++.exe -shared -fPIC
@@ -62,7 +62,7 @@ AS       := C:/TDM-GCC-64/bin/as.exe
 ## User defined environment variables
 ##
 CodeLiteDir:=D:\Program Files\CodeLite
-Objects0=$(IntermediateDirectory)/ou2.c$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/ou3.c$(ObjectSuffix) 
 
 
 
@@ -93,13 +93,13 @@ PreBuild:
 ##
 ## Objects
 ##
-$(IntermediateDirectory)/ou2.c$(ObjectSuffix): ou2.c $(IntermediateDirectory)/ou2.c$(DependSuffix)
-	$(CC) $(SourceSwitch) "F:/Files/True Documents/Programming/Projects/Test_C/ou2.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/ou2.c$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/ou2.c$(DependSuffix): ou2.c
-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/ou2.c$(ObjectSuffix) -MF$(IntermediateDirectory)/ou2.c$(DependSuffix) -MM ou2.c
+$(IntermediateDirectory)/ou3.c$(ObjectSuffix): ou3.c $(IntermediateDirectory)/ou3.c$(DependSuffix)
+	$(CC) $(SourceSwitch) "F:/Files/True Documents/Programming/Projects/Test_C/ou3.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/ou3.c$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/ou3.c$(DependSuffix): ou3.c
+	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/ou3.c$(ObjectSuffix) -MF$(IntermediateDirectory)/ou3.c$(DependSuffix) -MM ou3.c
 
-$(IntermediateDirectory)/ou2.c$(PreprocessSuffix): ou2.c
-	$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/ou2.c$(PreprocessSuffix)ou2.c
+$(IntermediateDirectory)/ou3.c$(PreprocessSuffix): ou3.c
+	$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/ou3.c$(PreprocessSuffix)ou3.c
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)

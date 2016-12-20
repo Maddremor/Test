@@ -38,8 +38,10 @@ void loadRandom(const int rows, const int cols, cell field[rows][cols]);
 void loadCustom(const int rows, const int cols, cell field[rows][cols]);
 
 void printField(const int rows, const int cols, cell field[rows][cols]);
-void printMenu();
+int menu();
 void simulateField(const int rows, const int cols, cell field[rows][cols]);
+void updateField(const int rows, const int cols, cell field[rows][cols]);
+int countNeighbours(const int rows, const int cols, const int r, const int c ,cell field[rows][cols]);
 
 
 /* Function:    main
@@ -49,10 +51,18 @@ void simulateField(const int rows, const int cols, cell field[rows][cols]);
  */
 
 int main(void) {
+    cell field[ROWS][COLUMNS];
+    int continueLoop;
+    initField(ROWS, COLUMNS, field);
     
-    
-    initField()
-    
+    do {
+        printField(ROWS, COLUMNS, field);
+        continueLoop = menu();
+        
+        simulateField(ROWS, COLUMNS, field);
+        updateField(ROWS, COLUMNS, field);
+        
+    } while (continueLoop);
     
     return 0;
 }
@@ -142,7 +152,7 @@ void loadSemaphore(const int rows, const int cols, cell field[rows][cols]) {
  */
 
 void loadRandom(const int rows, const int cols, cell field[rows][cols]) {
-    srand(time());
+    srand(time(NULL));
     for (int i = 0 ; i < rows ; i++){
         for (int j = 0 ; j < cols ; j++){
             if (rand() % 2){
@@ -171,4 +181,108 @@ void loadCustom(const int rows, const int cols, cell field[rows][cols]) {
 }
 
 
+/* Function:    printField
+ * Description: 
+ * Input:       
+ * Output:      
+ */
 
+void printField(const int rows, const int cols, cell field[rows][cols]){
+    for (int i ; i < rows ; i++){
+        for (int j ; j < cols ; j++){
+            if (j == 0) {
+                printf("\n%c", field[i][j].current);
+            } else {
+                printf(" %c", field[i][j].current);
+            }
+        }
+    }
+}
+
+
+/* Function:    menu
+ * Description: 
+ * Input:       
+ * Output:      
+ */
+
+int menu(){
+    printf("(enter) Step");
+    printf("(any) Exit");
+    return (getchar() == 14);
+}
+
+
+/* Function:    simulateField
+ * Description: 
+ * Input:       
+ * Output:      
+ */
+
+void simulateField(const int rows, const int cols, cell field[rows][cols]){
+    
+    int neighbourSum;
+    for (int r ; r < rows ; r++){
+        for (int c ; c < cols ; c++){
+            neighbourSum = countNeighbours(rows, cols, r, c, field);
+            
+            if ( (field[r][c].current == ALIVE) && ( (neighbourSum >= 3) || (neighbourSum <= 1) ) ){
+                field[r][c].next = DEAD;
+            } else if ( (field[r][c].current == DEAD) && (neighbourSum == 3) ){
+                field[r][c].next = ALIVE;
+            }
+            
+            
+        }
+            
+    }
+    
+    
+    
+}
+
+
+/* Function:    updateField
+ * Description: 
+ * Input:       
+ * Output:      
+ */
+
+void updateField(const int rows, const int cols, cell field[rows][cols]){
+    for (int i ; i < rows ; i++){
+        for (int j ; j < cols ; j++){
+            field[i][j].current = field[i][j].next;
+        }
+            
+    }
+}
+
+int countNeighbours(const int rows, const int cols, const int r, const int c ,cell field[rows][cols]){
+    int neighbourSum = 0;
+    int rowUpperBound = r + 1;
+    int rowLowerBound = r - 1;
+    int colUpperBound = c + 1;
+    int colLowerBound = c - 1;
+    
+    if (r >= rows){
+        rowUpperBound = rows;
+    }
+    if (r <= 0){
+        rowLowerBound = 0;
+    }
+    if (c >= cols){
+        colUpperBound = cols;
+    }
+    if (c <= 0){
+        colLowerBound = 0;
+    }
+    
+    for (int i = rowLowerBound ; i <= rowUpperBound ; i++){
+        for (int j = colLowerBound ; j <= colUpperBound ; j++){
+            if ( (field[i][j].current == ALIVE) && (i != r ) &&( j != c) ){
+                neighbourSum++;
+            }
+        }
+    }
+    return neighbourSum;
+}
