@@ -7,7 +7,7 @@
  * Description:  A simple implementation of Conway's Game of Life.
  * Author:       Lukas Sjögren
  * CS username:  tm14lsn
- * Date:         2016-10-20
+ * Date:         2016-12-20
  * Input:        Choice of initial configuration and then instruction to step
  *               or exit.
  * Output:       Prints the game field in each step.
@@ -132,7 +132,14 @@ void loadSemaphore(const int rows, const int cols, cell field[rows][cols]) {
  */
 
 void loadRandom(const int rows, const int cols, cell field[rows][cols]) {
-
+    srand(time());
+    for (int i = 0 ; i < rows ; i++){
+        for (int j = 0 ; j < cols ; i++){
+            if (rand() % 2){
+                field[i][j].current = ALIVE;
+            }
+        }
+    }
 }
 
 
